@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  --font-heading: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --color-background: oklch(0.16 0.02 250);
+  --color-foreground: oklch(0.92 0.01 250);
+  --color-card: oklch(0.19 0.025 250);
+  --color-card-foreground: oklch(0.92 0.01 250);
+  --color-popover: oklch(0.19 0.025 250);
+  --color-popover-foreground: oklch(0.92 0.01 250);
+  --color-primary: oklch(0.72 0.17 165);
+  --color-primary-foreground: oklch(0.15 0.02 250);
+  --color-secondary: oklch(0.22 0.025 250);
+  --color-secondary-foreground: oklch(0.85 0.01 250);
+  --color-muted: oklch(0.22 0.02 250);
+  --color-muted-foreground: oklch(0.55 0.02 250);
+  --color-accent: oklch(0.72 0.17 165);
+  --color-accent-foreground: oklch(0.15 0.02 250);
+  --color-destructive: oklch(0.62 0.22 25);
+  --color-destructive-foreground: oklch(0.95 0.01 250);
+  --color-border: oklch(0.28 0.02 250);
+  --color-input: oklch(0.22 0.025 250);
+  --color-ring: oklch(0.72 0.17 165);
+  
+  --color-success: oklch(0.72 0.17 165);
+  --color-warning: oklch(0.80 0.16 80);
+  
+  --color-sidebar: oklch(0.14 0.02 250);
+  --color-sidebar-foreground: oklch(0.55 0.02 250);
+  --color-sidebar-primary: oklch(0.72 0.17 165);
+  --color-sidebar-primary-foreground: oklch(0.95 0.01 250);
+  --color-sidebar-accent: oklch(0.20 0.03 250);
+  --color-sidebar-accent-foreground: oklch(0.92 0.01 250);
+  --color-sidebar-border: oklch(0.25 0.02 250);
+  --color-sidebar-ring: oklch(0.72 0.17 165);
+
+  --radius-lg: 0.5rem;
+  --radius-md: calc(0.5rem - 2px);
+  --radius-sm: calc(0.5rem - 4px);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+@layer components {
+  .clinical-label {
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted-foreground);
+  }
+
+  .stat-value {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-foreground);
+  }
+
+  .card-clinical {
+    background-color: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+  }
+
+  .positive {
+    color: var(--color-success);
+  }
+
+  .negative {
+    color: var(--color-destructive);
+  }
+
+  .badge-bullish {
+    background-color: color-mix(in oklch, var(--color-success), transparent 85%);
+    color: var(--color-success);
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.25rem;
+    text-transform: uppercase;
+  }
+
+  .badge-bearish {
+    background-color: color-mix(in oklch, var(--color-destructive), transparent 85%);
+    color: var(--color-destructive);
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.25rem;
+    text-transform: uppercase;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius-md);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-sidebar-foreground);
+    transition: all 0.15s ease;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+  }
+
+  .nav-item:hover {
+    color: var(--color-foreground);
+    background-color: var(--color-sidebar-accent);
+  }
+
+  .nav-item-active {
+    color: var(--color-primary);
+    background-color: var(--color-sidebar-accent);
+    border-left-color: var(--color-primary);
+  }
+}
