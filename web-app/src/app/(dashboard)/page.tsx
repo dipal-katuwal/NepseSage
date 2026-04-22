@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   TrendingUp,
   TrendingDown,
@@ -84,12 +85,12 @@ export default function DashboardPage() {
               high-dividend yield stocks currently trading at a 15% discount to their 200-day EMA.
             </p>
             <div className="mt-4 flex flex-wrap gap-3">
-              <button className="rounded-md bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground hover:bg-primary/90 transition">
+              <Button variant="clinical" size="sm">
                 Execute Rebalance
-              </button>
-              <button className="rounded-md border border-border px-4 py-2 text-xs font-medium text-foreground hover:bg-secondary transition">
+              </Button>
+              <Button variant="outline" size="sm">
                 Full Report
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -98,12 +99,12 @@ export default function DashboardPage() {
             <div className="mb-4 flex items-center justify-between">
               <h3 className="clinical-label text-sm">Core Holdings</h3>
               <div className="flex gap-2">
-                <button className="text-muted-foreground hover:text-foreground">
+                <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground hover:text-foreground">
                   <Filter className="h-4 w-4" />
-                </button>
-                <button className="text-muted-foreground hover:text-foreground">
+                </Button>
+                <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground hover:text-foreground">
                   <Download className="h-4 w-4" />
-                </button>
+                </Button>
               </div>
             </div>
             <div className="overflow-x-auto">

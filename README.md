@@ -1,107 +1,93 @@
 # NEPSE Sage AI 🇳🇵
 
-**NEPSE Sage AI** is a professional-grade clinical analysis platform designed for investors in the Nepal Stock Exchange. It combines high-precision data visualization with AI-driven insights to provide a superior trading and portfolio management experience.
-
-Originally built with TanStack Start, this project has been fully migrated to **Next.js 15 (App Router)** for enhanced performance, scalability, and server-side capabilities.
+**NEPSE Sage AI** is a professional-grade clinical analysis platform for the Nepal Stock Exchange. It transforms raw market data into high-precision visual intelligence, combining institutional-grade UI with advanced AI behavioral insights.
 
 ---
 
-## 🚀 Key Features
+## 🏛️ Architecture & Context
+This project is a high-performance **Next.js 15 (App Router)** application, migrated from TanStack Start for superior SEO, edge compatibility, and developer velocity. It is designed with a **"Clinical Analyst"** philosophy: high-density data, zero-latency interactions, and a professional navy aesthetic.
 
-### 📊 Clinical Dashboard
-A high-density financial command center featuring:
-- **Portfolio Health**: Real-time value tracking and daily P/L metrics.
-- **Discipline Score**: A proprietary metric (0-100) that rates your adherence to your trading plan.
-- **Opportunity Radar**: AI-flagged technical signals (Mean Reversion, Volume Breakouts, etc.).
-- **Risk Meter**: Live Portfolio Beta and risk rating calculation.
-
-### 🤖 Sage AI Assistant
-A dedicated interface that acts as:
-- **Technical Analyst**: Can analyze MACD crossovers, RSI levels, and support/resistance for symbols like NTC or NICA.
-- **Trading Psychologist**: Identifies behavioral biases (FOMO, Loss Aversion) from your trading journal.
-- **Market Sentiment Engine**: Aggregates real-time NEPSE trends and selective accumulation signals.
-
-### 🧪 Behavior Lab (Trading Journal)
-Analyze the psychology behind every trade. Log your emotions, track your discipline heatmap, and receive clinical feedback on your trading patterns.
-
-### 🎮 Trading Simulator
-Practice your strategies in a risk-free environment using real NEPSE market data and virtual capital.
+### 🧠 Core Intelligence
+- **Behavioral Analysis**: Tracks "Discipline Scores" and identifies cognitive biases (FOMO, Revenge Trading) via the Journal.
+- **AI Engine**: A specialized interface for symbol analysis (e.g., NICA, NTC) and sentiment aggregation.
+- **Data Density**: UI is optimized for professional utility, using Space Grotesk for readability and DM Sans for dense data.
 
 ---
 
-## 🛠️ Tech Stack
+## 🚀 Module Breakdown
 
-- **Framework**: [Next.js 15 (App Router)](https://nextjs.org/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **UI System**: [Tailwind CSS 4](https://tailwindcss.com/) + [Shadcn UI](https://ui.shadcn.com/)
-- **Primitives**: [Radix UI](https://www.radix-ui.com/)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/)
-- **Charts**: [Recharts](https://recharts.org/)
-- **Validation**: [Zod](https://zod.dev/) + [React Hook Form](https://react-hook-form.com/)
-- **Infrastructure**: [Cloudflare / Wrangler](https://developers.cloudflare.com/workers/wrangler/)
+### 📊 Clinical Dashboard (`/`)
+The mission control for investors.
+- **Real-time Portfolio Health**: Value tracking and P/L metrics.
+- **Discipline Score**: Proprietary metric rating adherence to trading plans.
+- **Risk Meter**: Live Portfolio Beta and volatility ratings.
+
+### 🤖 Sage AI (`/sage-ai`)
+The analytical core.
+- **Technical Analyst**: Support/resistance detection and indicator interpretation.
+- **Sentiment Engine**: Aggregates NEPSE trends and accumulation signals.
+
+### 🧪 Behavior Lab (`/journal`)
+The trading psychologist.
+- **Emotional Logging**: Tracks mental state during trades.
+- **Pattern Recognition**: Flags "Red Flag" behaviors automatically.
+
+### 🎮 Simulator (`/simulator`)
+- **Virtual Capital**: Risk-free strategy testing with real market data.
 
 ---
 
-## 📁 Project Structure
+## 🛠️ Technical Stack & Primitives
+
+- **Framework**: Next.js 15 (App Router, Server Components)
+- **Styling**: Tailwind CSS 4 + Shadcn UI (Radix UI)
+- **Visuals**: Framer Motion (Micro-interactions) + Recharts (Financial charts)
+- **Type Safety**: Zod (Schema validation) + TypeScript (Strict mode)
+- **Deployment**: Optimized for Cloudflare Workers/Pages (Wrangler)
+
+---
+
+## 📁 Developer Guide: Project Structure
 
 ```text
 /src
   /app
-    /(dashboard)      # Main application layout & routes
-      /insights       # Community & AI market insights
-      /journal        # Behavior Lab & trade tracking
-      /leaderboard    # Analyst rankings
-      /sage-ai        # AI Chat interface
-      /settings       # User & workspace preferences
-      /simulator      # Virtual trading environment
-      layout.tsx      # App navigation & sidebar
-      page.tsx        # Clinical Dashboard
-    globals.css       # Tailwind 4 & clinical theme
-    layout.tsx        # Root configuration & metadata
+    /(dashboard)      # Authenticated routes & main layout
+      /insights       # Market sentiment & AI community signals
+      /journal        # Behavioral tracking (The "Psychologist")
+      /sage-ai        # AI LLM interface (The "Analyst")
+      /simulator      # Virtual trading logic
+      layout.tsx      # Sidebar & State management (SidebarProvider)
+      page.tsx        # Dashboard entry point
+    globals.css       # Design system (OKLCH colors, clinical variables)
   /components
-    /ui               # Shadcn UI components
-    AppLayout.tsx     # Sidebar & Topbar structure
-  /hooks              # Custom React hooks
-  /lib                # Utility functions
+    /ui               # Atomic Shadcn components (customized)
+    AppLayout.tsx     # Shell structure & navigation logic
+  /lib
+    /utils.ts         # Tailwind merging & shared helpers
+  /hooks
+    /use-mobile.tsx   # Responsive breakpoint management
 ```
 
 ---
 
-## ⚙️ Getting Started
-
-### Prerequisites
-- [Node.js](https://nodejs.org/) (v18+)
-- [npm](https://www.npmjs.com/) or [bun](https://bun.sh/)
-
-### Installation
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-### Development
-Start the Next.js development server:
-```bash
-npm run dev
-```
-Visit `http://localhost:3000` to see the clinical dashboard.
-
-### Build
-Generate an optimized production build:
-```bash
-npm run build
-```
+## 🎨 Design Language (Clinical Navy)
+The design system enforces a premium, anti-generic UI:
+- **Calibrated Color**: OKLCH-based colors for perfect light/dark mode transitions.
+- **Micro-Motion**: Hardware-accelerated transitions via Framer Motion.
+- **Typography**: `font-heading` (Space Grotesk) for impact; `font-sans` (DM Sans) for utility.
 
 ---
 
-## 🎨 Design System
-The project uses a custom "Clinical Navy" theme defined in `src/app/globals.css`, focusing on:
-- **Typography**: Space Grotesk (Headings) & DM Sans (Body).
-- **Colors**: High-contrast OKLCH-based colors for accessibility and professional utility.
-- **Components**: Modified Shadcn UI components optimized for data-dense financial applications.
+## ⚙️ Development Workflow
+
+1. **Setup**: `npm install`
+2. **Local Dev**: `npm run dev` (Port 3000)
+3. **Build**: `npm run build` (Static/Edge optimization)
 
 ---
 
-## 📝 License
-This project is private and intended for educational/personal use for the NEPSE investing community.
+## 📝 Usage for AI Tools
+If pasting this into another AI for development:
+> "This is a Next.js 15 App Router project using Shadcn UI and Tailwind 4. The project follows a 'Clinical Analyst' aesthetic. Key files include `AppLayout.tsx` for layout and `globals.css` for the theme. Prioritize performance, data density, and Space Grotesk typography in all UI changes."
+
