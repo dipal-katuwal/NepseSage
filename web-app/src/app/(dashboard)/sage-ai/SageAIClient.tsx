@@ -39,30 +39,9 @@ const conversations = [
 
 export default function SageAIClient() {
   return (
-    <div className="flex gap-6 h-[calc(100vh-10rem)]">
+    <div className="flex flex-col lg:flex-row gap-6 h-[calc(100vh-10rem)] lg:h-[calc(100vh-10rem)]">
       {/* Chat Area */}
-      <div className="flex flex-1 flex-col">
-        {/* Mode Tabs */}
-        <div className="mb-4 flex gap-2">
-          {[
-            { label: "Analyst", icon: "📊", active: true },
-            { label: "Psychologist", icon: "⚙️", active: false },
-            { label: "Quick", icon: "⚡", active: false },
-          ].map((tab) => (
-            <button
-              key={tab.label}
-              className={`flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition ${
-                tab.active
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              <span>{tab.icon}</span>
-              {tab.label}
-            </button>
-          ))}
-        </div>
-
+      <div className="flex flex-1 flex-col min-h-[400px]">
         {/* Messages */}
         <div className="flex-1 overflow-y-auto space-y-4 pr-2">
           {messages.map((msg, i) => (
@@ -72,7 +51,7 @@ export default function SageAIClient() {
                   <span className="text-primary text-sm">🤖</span>
                 </div>
               )}
-              <div className={`max-w-lg ${msg.type === "user" ? "bg-secondary rounded-xl rounded-br-sm px-4 py-3" : "space-y-3"}`}>
+              <div className={`max-w-[85%] sm:max-w-lg ${msg.type === "user" ? "bg-secondary rounded-xl rounded-br-sm px-4 py-3" : "space-y-3"}`}>
                 <p className="text-sm leading-relaxed">{msg.text}</p>
                 {msg.chart && (
                   <>
@@ -122,7 +101,7 @@ export default function SageAIClient() {
           <div className="relative flex-1">
             <input
               type="text"
-              placeholder="Ask Sage AI anything about NEPSE..."
+              placeholder="Ask Sage AI..."
               className="w-full rounded-lg border border-border bg-input px-4 py-3 pr-20 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
             />
             <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
@@ -136,15 +115,15 @@ export default function SageAIClient() {
           </div>
         </div>
         <p className="mt-2 text-center text-xs text-muted-foreground">
-          Sage AI can make mistakes. Check important financial info.
+          Sage AI can make mistakes.
         </p>
       </div>
 
       {/* Right Panel */}
-      <div className="w-72 space-y-6">
+      <div className="w-full lg:w-72 space-y-6">
         <div className="card-clinical">
           <h3 className="clinical-label mb-3">Recent Conversations</h3>
-          <div className="space-y-1">
+          <div className="space-y-1 max-h-48 lg:max-h-none overflow-y-auto">
             {conversations.map((c) => (
               <button
                 key={c.title}
@@ -157,26 +136,28 @@ export default function SageAIClient() {
           </div>
         </div>
 
-        <div className="card-clinical">
-          <h3 className="clinical-label mb-2">Market Pulse</h3>
-          <div className="flex justify-between">
-            <div>
-              <p className="clinical-label">NEPSE</p>
-              <span className="positive text-sm font-bold">2,045.2 (+0.4%)</span>
-            </div>
-            <div className="text-right">
-              <p className="clinical-label">Volume</p>
-              <span className="text-sm font-bold">4.2B</span>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 lg:gap-6">
+          <div className="card-clinical">
+            <h3 className="clinical-label mb-2">Market Pulse</h3>
+            <div className="flex justify-between">
+              <div>
+                <p className="clinical-label">NEPSE</p>
+                <span className="positive text-sm font-bold">2,045.2 (+0.4%)</span>
+              </div>
+              <div className="text-right">
+                <p className="clinical-label">Volume</p>
+                <span className="text-sm font-bold">4.2B</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="card-clinical">
-          <h3 className="clinical-label mb-2">Usage Limit</h3>
-          <div className="h-1.5 w-full rounded-full bg-secondary">
-            <div className="h-1.5 rounded-full bg-primary" style={{ width: "70%" }} />
+          <div className="card-clinical">
+            <h3 className="clinical-label mb-2">Usage Limit</h3>
+            <div className="h-1.5 w-full rounded-full bg-secondary">
+              <div className="h-1.5 rounded-full bg-primary" style={{ width: "70%" }} />
+            </div>
+            <p className="mt-2 text-xs text-muted-foreground">14 / 20 Queries remaining</p>
           </div>
-          <p className="mt-2 text-xs text-muted-foreground">14 / 20 Analysis Queries remaining</p>
         </div>
       </div>
     </div>

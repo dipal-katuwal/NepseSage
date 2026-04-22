@@ -21,9 +21,9 @@ export default function LeaderboardClient() {
   return (
     <>
       {/* Podium */}
-      <div className="mb-8 grid grid-cols-3 gap-6 items-end">
+      <div className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
         {topAnalysts.map((a) => (
-          <div key={a.name} className={`card-clinical text-center ${a.isTop ? "border-primary/40 pb-6 pt-8" : "pb-5 pt-6"}`}>
+          <div key={a.name} className={`card-clinical text-center ${a.isTop ? "border-primary/40 pb-6 pt-8 order-first md:order-none" : "pb-5 pt-6"}`}>
             {a.isTop && (
               <span className="badge-bullish mb-3 inline-block">⭐ Sage Supreme</span>
             )}
@@ -47,13 +47,13 @@ export default function LeaderboardClient() {
       </div>
 
       {/* Ranking Directory */}
-      <div className="card-clinical">
-        <div className="mb-4 flex items-center justify-between">
+      <div className="card-clinical overflow-hidden">
+        <div className="mb-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h2 className="font-heading text-lg font-bold">Ranking Directory</h2>
             <p className="text-xs text-muted-foreground">Based on clinical analysis and market performance data.</p>
           </div>
-          <div className="flex gap-1">
+          <div className="flex flex-wrap gap-1">
             {["Weekly", "Monthly", "All-Time"].map((p) => (
               <button
                 key={p}
@@ -66,47 +66,49 @@ export default function LeaderboardClient() {
           </div>
         </div>
 
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border">
-              <th className="clinical-label pb-3 text-left">Rank</th>
-              <th className="clinical-label pb-3 text-left">Analyst</th>
-              <th className="clinical-label pb-3 text-right">Reputation</th>
-              <th className="clinical-label pb-3 text-right">% Return</th>
-              <th className="clinical-label pb-3 text-left pl-6">Achievements</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rankings.map((r) => (
-              <tr key={r.rank} className="border-b border-border/50">
-                <td className="py-4">
-                  <span className="font-heading text-lg font-bold">{String(r.rank).padStart(2, "0")}</span>
-                  <span className={`ml-1 text-xs ${r.trend === "up" ? "positive" : r.trend === "down" ? "negative" : "text-muted-foreground"}`}>
-                    {r.trend === "up" ? "↑" : r.trend === "down" ? "↓" : "—"}
-                  </span>
-                </td>
-                <td className="py-4">
-                  <div className="flex items-center gap-3">
-                    <div className="h-8 w-8 rounded-full bg-secondary flex items-center justify-center text-xs font-bold">{r.name[0]}</div>
-                    <div>
-                      <span className="text-sm font-semibold">{r.name}</span>
-                      <p className="text-xs text-muted-foreground">{r.subtitle}</p>
-                    </div>
-                  </div>
-                </td>
-                <td className="py-4 text-right text-sm">{r.reputation}</td>
-                <td className="py-4 text-right text-sm font-semibold positive">{r.returnPct}</td>
-                <td className="py-4 pl-6">
-                  <div className="flex gap-2">
-                    {r.badges.map((b) => (
-                      <span key={b} className="badge-bullish">{b}</span>
-                    ))}
-                  </div>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[700px]">
+            <thead>
+              <tr className="border-b border-border">
+                <th className="clinical-label pb-3 text-left">Rank</th>
+                <th className="clinical-label pb-3 text-left">Analyst</th>
+                <th className="clinical-label pb-3 text-right">Reputation</th>
+                <th className="clinical-label pb-3 text-right">% Return</th>
+                <th className="clinical-label pb-3 text-left pl-6">Achievements</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {rankings.map((r) => (
+                <tr key={r.rank} className="border-b border-border/50">
+                  <td className="py-4">
+                    <span className="font-heading text-lg font-bold">{String(r.rank).padStart(2, "0")}</span>
+                    <span className={`ml-1 text-xs ${r.trend === "up" ? "positive" : r.trend === "down" ? "negative" : "text-muted-foreground"}`}>
+                      {r.trend === "up" ? "↑" : r.trend === "down" ? "↓" : "—"}
+                    </span>
+                  </td>
+                  <td className="py-4">
+                    <div className="flex items-center gap-3">
+                      <div className="h-8 w-8 rounded-full bg-secondary flex items-center justify-center text-xs font-bold">{r.name[0]}</div>
+                      <div>
+                        <span className="text-sm font-semibold">{r.name}</span>
+                        <p className="text-xs text-muted-foreground">{r.subtitle}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="py-4 text-right text-sm">{r.reputation}</td>
+                  <td className="py-4 text-right text-sm font-semibold positive">{r.returnPct}</td>
+                  <td className="py-4 pl-6">
+                    <div className="flex gap-2">
+                      {r.badges.map((b) => (
+                        <span key={b} className="badge-bullish">{b}</span>
+                      ))}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
         <button className="mt-4 w-full text-center text-sm text-muted-foreground hover:text-foreground">
           View Complete Rankings ↓
@@ -114,13 +116,13 @@ export default function LeaderboardClient() {
       </div>
 
       {/* Bottom Row */}
-      <div className="mt-6 grid grid-cols-3 gap-6">
-        <div className="col-span-2 card-clinical">
+      <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 card-clinical">
           <h3 className="font-heading text-lg font-bold">Analyst Comparison</h3>
           <p className="text-xs text-muted-foreground mb-4">Compare your metrics against top performers.</p>
           {["Profitability Factor", "Accuracy Rate", "Risk-Adjusted Return"].map((metric) => (
             <div key={metric} className="mb-3">
-              <div className="flex items-center justify-between mb-1">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-1 gap-1">
                 <span className="clinical-label">{metric}</span>
                 <span className="text-xs text-muted-foreground">You vs Prabin Karki</span>
               </div>

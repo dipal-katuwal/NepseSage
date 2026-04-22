@@ -40,7 +40,7 @@ export default function DashboardPage() {
   return (
     <>
       {/* Stats Row */}
-      <div className="mb-6 grid grid-cols-4 gap-4">
+      <div className="mb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((s) => (
           <div key={s.label} className="card-clinical">
             <p className="clinical-label">{s.label}</p>
@@ -64,9 +64,9 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-3 gap-6">
-        {/* Main Content - 2 cols */}
-        <div className="col-span-2 space-y-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Main Content - 2 cols on lg */}
+        <div className="lg:col-span-2 space-y-6">
           {/* Sage Intelligence */}
           <div className="card-clinical">
             <div className="mb-3 flex items-center justify-between">
@@ -83,7 +83,7 @@ export default function DashboardPage() {
               sector is diverging positively from price action. Sage AI recommends focusing on
               high-dividend yield stocks currently trading at a 15% discount to their 200-day EMA.
             </p>
-            <div className="mt-4 flex gap-3">
+            <div className="mt-4 flex flex-wrap gap-3">
               <button className="rounded-md bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground hover:bg-primary/90 transition">
                 Execute Rebalance
               </button>
@@ -94,7 +94,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Core Holdings */}
-          <div className="card-clinical">
+          <div className="card-clinical overflow-hidden">
             <div className="mb-4 flex items-center justify-between">
               <h3 className="clinical-label text-sm">Core Holdings</h3>
               <div className="flex gap-2">
@@ -106,36 +106,38 @@ export default function DashboardPage() {
                 </button>
               </div>
             </div>
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-border">
-                  <th className="clinical-label pb-3 text-left">Symbol</th>
-                  <th className="clinical-label pb-3 text-right">Qty</th>
-                  <th className="clinical-label pb-3 text-right">Avg Cost</th>
-                  <th className="clinical-label pb-3 text-right">LTP</th>
-                  <th className="clinical-label pb-3 text-right">P/L %</th>
-                  <th className="clinical-label pb-3 text-right">Market Value</th>
-                </tr>
-              </thead>
-              <tbody>
-                {holdings.map((h) => (
-                  <tr key={h.symbol} className="border-b border-border/50">
-                    <td className="py-3 font-heading text-sm font-bold">{h.symbol}</td>
-                    <td className="py-3 text-right text-sm text-muted-foreground">{h.qty}</td>
-                    <td className="py-3 text-right text-sm text-muted-foreground">{h.avgCost}</td>
-                    <td className="py-3 text-right text-sm">{h.ltp}</td>
-                    <td className={`py-3 text-right text-sm font-semibold ${h.positive ? "positive" : "negative"}`}>
-                      {h.pl}
-                    </td>
-                    <td className="py-3 text-right text-sm">{h.value}</td>
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[600px]">
+                <thead>
+                  <tr className="border-b border-border">
+                    <th className="clinical-label pb-3 text-left">Symbol</th>
+                    <th className="clinical-label pb-3 text-right">Qty</th>
+                    <th className="clinical-label pb-3 text-right">Avg Cost</th>
+                    <th className="clinical-label pb-3 text-right">LTP</th>
+                    <th className="clinical-label pb-3 text-right">P/L %</th>
+                    <th className="clinical-label pb-3 text-right">Market Value</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {holdings.map((h) => (
+                    <tr key={h.symbol} className="border-b border-border/50">
+                      <td className="py-3 font-heading text-sm font-bold">{h.symbol}</td>
+                      <td className="py-3 text-right text-sm text-muted-foreground">{h.qty}</td>
+                      <td className="py-3 text-right text-sm text-muted-foreground">{h.avgCost}</td>
+                      <td className="py-3 text-right text-sm">{h.ltp}</td>
+                      <td className={`py-3 text-right text-sm font-semibold ${h.positive ? "positive" : "negative"}`}>
+                        {h.pl}
+                      </td>
+                      <td className="py-3 text-right text-sm">{h.value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
 
           {/* Opportunity Radar + Risk Meter */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="card-clinical">
               <h3 className="clinical-label mb-4">Opportunity Radar</h3>
               {opportunities.map((o) => (
