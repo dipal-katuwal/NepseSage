@@ -19,6 +19,13 @@ import {
   HelpCircle,
   LogOut,
   Zap,
+  TrendingUp,
+  AlertCircle,
+  Info,
+  Users,
+  RefreshCw,
+  X,
+  Check,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -31,6 +38,8 @@ import {
   CommandSeparator,
 } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Badge } from "@/components/ui/badge";
 import {
   Sidebar,
   SidebarContent,
@@ -43,6 +52,74 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
+
+const notificationGroups = [
+  {
+    label: "AI Insights",
+    icon: TrendingUp,
+    items: [
+      {
+        id: 1,
+        title: "Unusual Volume detected in HDL",
+        desc: "Himalayan Distillery is showing a 300% increase in volume relative to its 20-day average. Potential trend reversal imminent.",
+        time: "2m ago",
+        unread: true,
+        actions: ["Analyze Symbol", "Dismiss"],
+      },
+    ],
+  },
+  {
+    label: "Market Alerts",
+    icon: AlertCircle,
+    items: [
+      {
+        id: 2,
+        title: "Price Alert: NICA reached Rs. 750",
+        desc: "Your alert for NIC Asia Bank has been triggered. Target price hit at 13:42:00.",
+        time: "14m ago",
+        unread: true,
+        actions: [],
+      },
+      {
+        id: 3,
+        title: "Quarterly Report: SHL",
+        desc: "Soaltee Hotel Limited has published its Q1 report. Net profit increased by 12% YoY.",
+        time: "2h ago",
+        unread: false,
+        actions: [],
+      },
+    ],
+  },
+  {
+    label: "Community",
+    icon: Users,
+    items: [
+      {
+        id: 4,
+        title: "Binod K. mentioned you in a comment",
+        desc: '"I think your analysis on the banking sector bull run is spot on. What do you think about ADBL?"',
+        time: "5h ago",
+        unread: false,
+        actions: [],
+        avatar: "BK",
+      },
+    ],
+  },
+  {
+    label: "System Updates",
+    icon: RefreshCw,
+    items: [
+      {
+        id: 5,
+        title: "New Feature: Simulator V2",
+        desc: "The trading simulator now supports real-time market depth and stop-loss orders.",
+        time: "Yesterday",
+        unread: false,
+        actions: [],
+      },
+    ],
+  },
+];
 
 const navItems = [
   { label: "Dashboard", icon: LayoutDashboard, to: "/" },
@@ -188,9 +265,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                       </kbd>
                     </div>
                   </PopoverTrigger>
-                  <PopoverContent 
-                    className="w-40 md:w-72 p-0" 
-                    align="start" 
+                  <PopoverContent
+                    className="w-40 md:w-72 p-0"
+                    align="start"
                     onOpenAutoFocus={(e) => e.preventDefault()}
                   >
                     <Command>
@@ -198,15 +275,15 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                         <CommandEmpty>No results found.</CommandEmpty>
                         <CommandGroup heading="Stocks">
                           <CommandItem onSelect={() => setOpenSearch(false)}>
-                            <LineChart className="mr-2 h-4 w-4" /> NICA 
+                            <LineChart className="mr-2 h-4 w-4" /> NICA
                             <span className="ml-auto text-xs text-muted-foreground">Commercial Banks</span>
                           </CommandItem>
                           <CommandItem onSelect={() => setOpenSearch(false)}>
-                            <LineChart className="mr-2 h-4 w-4" /> NABIL 
+                            <LineChart className="mr-2 h-4 w-4" /> NABIL
                             <span className="ml-auto text-xs text-muted-foreground">Commercial Banks</span>
                           </CommandItem>
                           <CommandItem onSelect={() => setOpenSearch(false)}>
-                            <LineChart className="mr-2 h-4 w-4" /> SHL 
+                            <LineChart className="mr-2 h-4 w-4" /> SHL
                             <span className="ml-auto text-xs text-muted-foreground">Hotels</span>
                           </CommandItem>
                         </CommandGroup>
@@ -246,8 +323,97 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 </Link>
               </nav>
               <div className="ml-2 flex items-center gap-2 md:gap-3">
-                <Button variant="ghost" size="icon" className="text-muted-foreground h-8 w-8">
-                  <Bell className="h-4 w-4" />
+                <Button variant="ghost" size="icon" className="text-muted-foreground h-8 w-8" asChild>
+                  <Sheet modal={false}>
+                    <SheetTrigger asChild>
+                      <button className="relative h-8 w-8 flex items-center justify-center rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors">
+                        <Bell className="h-4 w-4" />
+                        <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-primary text-primary-foreground text-[9px] font-bold flex items-center justify-center leading-none">
+                          4
+                        </span>
+                      </button>
+                    </SheetTrigger>
+                    <SheetContent side="right" className="w-full sm:w-[420px] p-0 flex flex-col gap-0">
+                      {/* Header */}
+                      <SheetHeader className="flex flex-row items-center justify-between px-5 py-4 border-b border-border shrink-0">
+                        <div className="flex items-center gap-3">
+                          <SheetTitle className="text-base font-bold font-heading">Notifications</SheetTitle>
+                          <Badge variant="secondary" className="text-[10px] font-bold text-primary bg-primary/10 border-0 px-2 py-0.5 rounded-full">
+                            4 NEW
+                          </Badge>
+                        </div>
+
+                      </SheetHeader>
+
+                      {/* Scrollable content */}
+                      <div className="flex-1 overflow-y-auto">
+                        {notificationGroups.map((group) => (
+                          <div key={group.label}>
+                            {/* Group label */}
+                            <div className="flex items-center gap-2 px-5 py-3 border-b border-border/50 bg-muted/30">
+                              <group.icon className="h-3.5 w-3.5 text-muted-foreground" />
+                              <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                                {group.label}
+                              </span>
+                            </div>
+                            {/* Notification items */}
+                            {group.items.map((item) => (
+                              <div
+                                key={item.id}
+                                className={`px-5 py-4 border-b border-border/40 transition-colors hover:bg-muted/20 ${item.unread ? "bg-primary/5" : ""
+                                  }`}
+                              >
+                                <div className="flex items-start gap-3">
+                                  {/* Avatar or icon */}
+                                  {"avatar" in item && item.avatar ? (
+                                    <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center shrink-0 text-[10px] font-bold text-primary">
+                                      {item.avatar}
+                                    </div>
+                                  ) : (
+                                    <div className={`h-8 w-8 rounded-full flex items-center justify-center shrink-0 ${item.unread ? "bg-primary/15" : "bg-muted"
+                                      }`}>
+                                      {item.unread
+                                        ? <Bell className="h-3.5 w-3.5 text-primary" />
+                                        : <Info className="h-3.5 w-3.5 text-muted-foreground" />}
+                                    </div>
+                                  )}
+                                  <div className="flex-1 min-w-0">
+                                    <div className="flex items-start justify-between gap-2">
+                                      <p className={`text-sm leading-snug ${item.unread ? "font-semibold text-foreground" : "font-medium text-foreground/80"
+                                        }`}>
+                                        {item.title}
+                                      </p>
+                                      <span className="text-[10px] text-muted-foreground shrink-0 mt-0.5">{item.time}</span>
+                                    </div>
+                                    <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+                                    {item.actions.length > 0 && (
+                                      <div className="flex items-center gap-2 mt-3">
+                                        <button className="text-xs font-semibold px-3 py-1.5 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+                                          {item.actions[0]}
+                                        </button>
+                                        {item.actions[1] && (
+                                          <button className="text-xs font-medium px-3 py-1.5 rounded-md border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+                                            {item.actions[1]}
+                                          </button>
+                                        )}
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Footer */}
+                      <div className="shrink-0 border-t border-border p-4">
+                        <button className="w-full py-2.5 text-sm font-medium text-center rounded-md border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+                          View All Notifications
+                        </button>
+                      </div>
+                    </SheetContent>
+                  </Sheet>
                 </Button>
                 <Button
                   variant="ghost"
@@ -269,24 +435,24 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             {pathname === "/sage-ai" ? children : <div className="mx-auto max-w-7xl">{children}</div>}
           </main>
 
-        {/* Footer */}
-        {pathname !== "/sage-ai" && (
-          <footer className="flex flex-col sm:flex-row items-center justify-between border-t border-border px-6 py-4 gap-4">
-            <div className="flex items-center gap-2">
-              <span className="font-heading text-xs font-semibold text-foreground">
-                NEPSE Sage AI
-              </span>
-              <span className="text-xs text-muted-foreground">
-                Made for Nepali Investors 🇳🇵
-              </span>
-            </div>
-            <div className="flex items-center gap-4 md:gap-6">
-              <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer">About</span>
-              <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer">Privacy</span>
-              <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer">Terms</span>
-            </div>
-          </footer>
-        )}
+          {/* Footer */}
+          {pathname !== "/sage-ai" && (
+            <footer className="flex flex-col sm:flex-row items-center justify-between border-t border-border px-6 py-4 gap-4">
+              <div className="flex items-center gap-2">
+                <span className="font-heading text-xs font-semibold text-foreground">
+                  NEPSE Sage AI
+                </span>
+                <span className="text-xs text-muted-foreground">
+                  Made for Nepali Investors 🇳🇵
+                </span>
+              </div>
+              <div className="flex items-center gap-4 md:gap-6">
+                <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer">About</span>
+                <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer">Privacy</span>
+                <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer">Terms</span>
+              </div>
+            </footer>
+          )}
         </div>
       </div>
 
