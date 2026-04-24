@@ -9,10 +9,14 @@ import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem, C
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { AuthGuard } from "@/components/AuthGuard";
 
 export default function SimulatorClient() {
   return (
-    <>
+    <AuthGuard
+      featureName="Trading Simulator"
+      featureDesc="The Trading Simulator allows you to practice your strategies with Rs. 5,00,000 in virtual capital. Sign in to start your paper trading journey without risk."
+    >
       <Breadcrumb className="mb-4">
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -169,6 +173,6 @@ export default function SimulatorClient() {
           </ResizablePanel>
         </ResizablePanelGroup>
       </div>
-    </>
+    </AuthGuard>
   );
 }

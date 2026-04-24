@@ -209,6 +209,92 @@
     border-left-color: var(--color-primary);
   }
 
+  .auth-input {
+    width: 100%;
+    height: 2.5rem;
+    padding: 0 0.75rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-input);
+    color: var(--color-foreground);
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+  }
+
+  .auth-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 1px var(--color-primary);
+  }
+
+  .auth-input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .auth-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.5rem;
+    padding: 0 1.25rem;
+    border-radius: var(--radius-md);
+    background-color: var(--color-primary);
+    color: var(--color-primary-foreground);
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+  }
+
+  .auth-btn-primary:hover:not(:disabled) {
+    background-color: color-mix(in oklch, var(--color-primary), white 10%);
+    transform: translateY(-1px);
+  }
+
+  .auth-btn-primary:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  .auth-btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .auth-btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.5rem;
+    padding: 0 1.25rem;
+    border-radius: var(--radius-md);
+    background-color: transparent;
+    color: var(--color-foreground);
+    border: 1px solid var(--color-border);
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .auth-btn-ghost:hover:not(:disabled) {
+    background-color: var(--color-muted);
+    border-color: var(--color-muted-foreground);
+  }
+
+  .auth-error {
+    background-color: color-mix(in oklch, var(--color-destructive), transparent 90%);
+    border: 1px solid color-mix(in oklch, var(--color-destructive), transparent 80%);
+    color: var(--color-destructive);
+    padding: 0.75rem;
+    border-radius: var(--radius-md);
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
   .hide-scrollbar {
     scrollbar-width: none;
     -ms-overflow-style: none;
