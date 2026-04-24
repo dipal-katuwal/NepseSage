@@ -2,7 +2,7 @@
 
 import { User, Wallet, Bell, Palette, Lock, CreditCard } from "lucide-react";
 import { useState } from "react";
-import { AuthGuard } from "@/components/AuthGuard";
+import { AuthGuard } from "@/components/shared/AuthGuard";
 
 const tabs = [
   { label: "Account", icon: User },

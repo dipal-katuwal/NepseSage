@@ -9,7 +9,7 @@ import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem, C
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { AuthGuard } from "@/components/AuthGuard";
+import { AuthGuard } from "@/components/shared/AuthGuard";
 
 export default function SimulatorClient() {
   return (
