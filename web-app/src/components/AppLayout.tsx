@@ -21,6 +21,16 @@ import {
   Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Command,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+  CommandSeparator,
+} from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
   Sidebar,
   SidebarContent,
@@ -122,10 +132,22 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [openSearch, setOpenSearch] = useState(false);
 
   // Avoid hydration mismatch
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setOpenSearch((open) => !open);
+      }
+    };
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
   }, []);
 
   if (!mounted) {
@@ -150,13 +172,59 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               <span className="hidden font-heading text-sm font-semibold text-muted-foreground sm:inline-block">
                 NEPSE Sage AI
               </span>
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
-                <input
-                  type="text"
-                  placeholder="Search Symbols..."
-                  className="h-8 w-40 md:w-72 rounded-md border border-border bg-input pl-9 pr-3 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-                />
+              <div className="relative flex items-center">
+                <Popover open={openSearch} onOpenChange={setOpenSearch}>
+                  <PopoverTrigger asChild>
+                    <div className="relative">
+                      <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
+                      <input
+                        type="text"
+                        placeholder="Search Symbols..."
+                        className="h-8 w-40 md:w-72 rounded-md border border-border bg-input pl-9 pr-9 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                        onFocus={() => setOpenSearch(true)}
+                      />
+                      <kbd className="absolute right-1.5 top-1/2 -translate-y-1/2 pointer-events-none inline-flex h-4 select-none items-center gap-1 rounded border border-border bg-muted px-1 font-mono text-[9px] font-medium text-muted-foreground opacity-100">
+                        <span>⌘K</span>
+                      </kbd>
+                    </div>
+                  </PopoverTrigger>
+                  <PopoverContent 
+                    className="w-40 md:w-72 p-0" 
+                    align="start" 
+                    onOpenAutoFocus={(e) => e.preventDefault()}
+                  >
+                    <Command>
+                      <CommandList>
+                        <CommandEmpty>No results found.</CommandEmpty>
+                        <CommandGroup heading="Stocks">
+                          <CommandItem onSelect={() => setOpenSearch(false)}>
+                            <LineChart className="mr-2 h-4 w-4" /> NICA 
+                            <span className="ml-auto text-xs text-muted-foreground">Commercial Banks</span>
+                          </CommandItem>
+                          <CommandItem onSelect={() => setOpenSearch(false)}>
+                            <LineChart className="mr-2 h-4 w-4" /> NABIL 
+                            <span className="ml-auto text-xs text-muted-foreground">Commercial Banks</span>
+                          </CommandItem>
+                          <CommandItem onSelect={() => setOpenSearch(false)}>
+                            <LineChart className="mr-2 h-4 w-4" /> SHL 
+                            <span className="ml-auto text-xs text-muted-foreground">Hotels</span>
+                          </CommandItem>
+                        </CommandGroup>
+                        <CommandSeparator />
+                        <CommandGroup heading="Shortcuts">
+                          <CommandItem onSelect={() => setOpenSearch(false)}>
+                            <LayoutDashboard className="mr-2 h-4 w-4" />
+                            <span>Dashboard</span>
+                          </CommandItem>
+                          <CommandItem onSelect={() => setOpenSearch(false)}>
+                            <Settings className="mr-2 h-4 w-4" />
+                            <span>Settings</span>
+                          </CommandItem>
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
               </div>
             </div>
             <div className="flex items-center gap-1 md:gap-2">
@@ -190,35 +258,38 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 >
                   {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
                 </Button>
-                <div className="ml-1 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
-                  <span className="text-[10px] font-bold text-primary">JD</span>
-                </div>
+                <Avatar className="ml-1 h-8 w-8 border border-primary/20">
+                  <AvatarFallback className="bg-primary/10 text-[10px] font-bold text-primary">JD</AvatarFallback>
+                </Avatar>
               </div>
             </div>
           </header>
 
-          <main className="flex-1 overflow-y-auto p-4 md:p-6">
-            <div className="mx-auto max-w-7xl">{children}</div>
+          <main className={`flex-1 ${pathname === "/sage-ai" ? "overflow-hidden p-0" : "overflow-y-auto p-4 md:p-6"}`}>
+            {pathname === "/sage-ai" ? children : <div className="mx-auto max-w-7xl">{children}</div>}
           </main>
 
         {/* Footer */}
-        <footer className="flex flex-col sm:flex-row items-center justify-between border-t border-border px-6 py-4 gap-4">
-          <div className="flex items-center gap-2">
-            <span className="font-heading text-xs font-semibold text-foreground">
-              NEPSE Sage AI
-            </span>
-            <span className="text-xs text-muted-foreground">
-              Made for Nepali Investors 🇳🇵
-            </span>
-          </div>
-          <div className="flex items-center gap-4 md:gap-6">
-            <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer">About</span>
-            <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer">Privacy</span>
-            <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer">Terms</span>
-          </div>
-        </footer>
+        {pathname !== "/sage-ai" && (
+          <footer className="flex flex-col sm:flex-row items-center justify-between border-t border-border px-6 py-4 gap-4">
+            <div className="flex items-center gap-2">
+              <span className="font-heading text-xs font-semibold text-foreground">
+                NEPSE Sage AI
+              </span>
+              <span className="text-xs text-muted-foreground">
+                Made for Nepali Investors 🇳🇵
+              </span>
+            </div>
+            <div className="flex items-center gap-4 md:gap-6">
+              <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer">About</span>
+              <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer">Privacy</span>
+              <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer">Terms</span>
+            </div>
+          </footer>
+        )}
         </div>
       </div>
+
     </SidebarProvider>
   );
 }

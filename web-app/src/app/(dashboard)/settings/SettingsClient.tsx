@@ -16,37 +16,37 @@ export default function SettingsClient() {
   const [activeTab, setActiveTab] = useState("Account");
 
   return (
-    <>
+    <div className="mx-auto max-w-3xl w-full">
       <h1 className="font-heading text-2xl font-bold">Settings</h1>
       <p className="mt-1 text-sm text-muted-foreground">
         Manage your clinical analysis workspace and account preferences.
       </p>
 
-      <div className="mt-6 flex gap-8">
+      <div className="mt-6">
         {/* Settings Nav */}
-        <div className="w-52 space-y-1">
+        <div className="flex overflow-x-auto border-b border-border pb-4 gap-1 hide-scrollbar">
           {tabs.map((tab) => (
             <button
               key={tab.label}
               onClick={() => setActiveTab(tab.label)}
-              className={`flex w-full items-center gap-3 rounded-md px-3 py-2.5 text-sm transition ${
+              className={`flex items-center gap-2 rounded-md px-4 py-2 whitespace-nowrap text-sm transition ${
                 activeTab === tab.label
                   ? "bg-secondary text-primary font-medium"
                   : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
               }`}
             >
-              <tab.icon className="h-4 w-4" />
+              <tab.icon className="h-4 w-4 shrink-0" />
               {tab.label}
             </button>
           ))}
         </div>
 
         {/* Settings Content */}
-        <div className="flex-1 space-y-8">
+        <div className="mt-8 space-y-8">
           {/* Profile Information */}
           <section>
             <h2 className="clinical-label mb-4 text-sm">Profile Information</h2>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="clinical-label mb-2 block">Full Name</label>
                 <input
@@ -77,7 +77,7 @@ export default function SettingsClient() {
           {/* Appearance */}
           <section>
             <h2 className="clinical-label mb-4 text-sm">Appearance</h2>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <div className="card-clinical">
                 <h3 className="text-sm font-semibold">Interface Theme</h3>
                 <p className="text-xs text-muted-foreground">Select your preferred color scheme.</p>
@@ -96,7 +96,7 @@ export default function SettingsClient() {
                   ))}
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="card-clinical">
                   <h3 className="text-sm font-semibold">Condensed View</h3>
                   <p className="text-xs text-muted-foreground">Show more data in tables.</p>
@@ -127,7 +127,7 @@ export default function SettingsClient() {
                 { label: "Price Alerts", desc: "Push notifications when symbols reach target prices.", email: true, mobile: true },
                 { label: "Sage Insights", desc: "Daily summary of NEPSE market sentiment from Sage AI.", email: true, mobile: false },
               ].map((n) => (
-                <div key={n.label} className="flex items-center justify-between rounded-md bg-secondary p-4">
+                <div key={n.label} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-md bg-secondary p-4">
                   <div>
                     <h3 className="text-sm font-semibold">{n.label}</h3>
                     <p className="text-xs text-muted-foreground">{n.desc}</p>
@@ -162,6 +162,6 @@ export default function SettingsClient() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
