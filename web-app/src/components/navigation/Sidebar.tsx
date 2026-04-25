@@ -45,7 +45,7 @@ export function AppSidebar() {
             const isActive =
               pathname === item.to ||
               (item.to !== "/" && pathname.startsWith(item.to));
-            
+
             const isGated = ["/journal", "/sage-ai", "/simulator", "/settings"].includes(item.to);
             const showLock = isGated && !isAuthenticated;
 
@@ -90,10 +90,7 @@ export function AppSidebar() {
           </SidebarMenuItem>
           {isAuthenticated && (
             <SidebarMenuItem>
-              <SidebarMenuButton tooltip="Sign Out" onClick={logout} className="nav-item border-none h-10">
-                <LogOut className="h-4 w-4 shrink-0" />
-                <span>Sign Out</span>
-              </SidebarMenuButton>
+
             </SidebarMenuItem>
           )}
         </SidebarMenu>

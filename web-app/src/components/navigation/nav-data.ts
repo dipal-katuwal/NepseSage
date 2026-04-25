@@ -19,7 +19,7 @@ export const navItems = [
   { label: "Sage AI", icon: Bot, to: "/sage-ai" },
   { label: "Simulator", icon: LineChart, to: "/simulator" },
   { label: "Leaderboard", icon: Trophy, to: "/leaderboard" },
-  { label: "Settings", icon: Settings, to: "/settings" },
+  // { label: "Settings", icon: Settings, to: "/settings" },
 ];
 
 export const notificationGroups = [
